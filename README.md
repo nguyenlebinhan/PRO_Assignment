@@ -12,4 +12,3 @@ ba sú bê sô
 ba sú bê sô
 ba sú bê sô
 ba sú bê sô
-ba sú bê sô
