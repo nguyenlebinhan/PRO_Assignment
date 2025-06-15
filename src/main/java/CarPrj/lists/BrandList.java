@@ -15,7 +15,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import CarPrj.entities.Brand;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Scanner;
+=======
+
+>>>>>>> 1aa3ce6c33a577659457749cbddf7989871fdd5a
 
 public class BrandList {
     private final List<Brand> brandList;
@@ -61,9 +65,9 @@ public class BrandList {
         return true;
     }
     
-    public int searchID(String BrandID) {
+    public int searchID(String brandID) {
         for(int i=0;i<brandList.size();i++){
-            if(brandList.get(i).getBrandID().equals(BrandID)){
+            if(brandList.get(i).getBrandID().equals(brandID)){
                 return i;
             }
         }
