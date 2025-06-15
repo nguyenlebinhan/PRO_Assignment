@@ -24,7 +24,7 @@ public class Brand {
         this.brandID = brandID;
     }
 
-    public String getBrandname() {
+    public String getBrandName() {
         return brandName;
     }
 
