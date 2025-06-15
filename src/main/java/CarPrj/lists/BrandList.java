@@ -15,11 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import CarPrj.entities.Brand;
 import java.util.List;
-<<<<<<< HEAD
 import java.util.Scanner;
-=======
 
->>>>>>> 1aa3ce6c33a577659457749cbddf7989871fdd5a
 
 public class BrandList {
     private final List<Brand> brandList;
