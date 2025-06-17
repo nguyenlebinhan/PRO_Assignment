@@ -1,24 +1,26 @@
 package CarPrj.entities;
 import CarPrj.entities.Brand;
 
-    // NOTE (MinhPN): create getCarID(), getFrameID(), getEngineID() in Car.java (QuanLM finished)
+/**
+ * Lớp Car đại diện cho một chiếc xe hơi với thông tin cơ bản.
+ */
 
 public class Car implements Comparable<Car> {
     private String carID;
-    private Brand brand;
+    private Brand brand;        //// Brand là một lớp khác
     private String color;
     private String frameID;
     private String engineID;
 
-    public Car() {}
+    public Car() {}//Constructor mặc định.
 
     public Car(String carID, Brand brand, String color, String frameID, String engineID) {
-        this.carID = carID;
-        this.brand = brand;
-        this.color = color;
-        this.frameID = frameID;
-        this.engineID = engineID;
-    }
+        this.carID = carID;         //carID mã xe
+        this.brand = brand;         //brand đối tượng brand (hãng xe)
+        this.color = color;         //color màu xe
+        this.frameID = frameID;     //frameID mã khung
+        this.engineID = engineID;   //engineID mã động cơ
+    } //Constructor có tham số để khởi tạo đối tượng Car.
 
     public String getCarID() { return carID; }
     public void setCarID(String carID) { this.carID = carID; }
@@ -38,16 +40,16 @@ public class Car implements Comparable<Car> {
     @Override
     public String toString() {
         return carID + ", " + brand.getBrandID() + ", " + color + ", " + frameID + ", " + engineID;
-    }
+    } //Trả về chuỗi định dạng đơn giản để hiển thị
 
     public String screenString() {
         return brand.toString() + ", " + carID + ", " + color + ", " + frameID + ", " + engineID;
-    }
+    } //Trả về thông tin hiển thị đẹp mắt (dùng khi in danh sách)
 
     @Override
     public int compareTo(Car c) {
         int d = this.brand.getBrandName().compareTo(c.brand.getBrandName());
         if (d != 0) return d;
-        return this.carID.compareTo(c.carID);
-    }
+        return this.carID.compareTo(c.carID);   // nếu cùng hãng, so sánh carID
+    } //So sánh xe theo Brand name (tên hãng) để sắp xếp
 }
