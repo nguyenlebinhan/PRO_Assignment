@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import CarPrj.entities.Brand;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Scanner;
-
-
+=======
 
 
 public class BrandList {
