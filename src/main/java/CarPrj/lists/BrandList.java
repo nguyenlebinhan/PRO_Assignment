@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import CarPrj.entities.Brand;
 import java.util.List;
-<<<<<<< HEAD
+
 import java.util.Scanner;
-=======
+
 
 
 public class BrandList {
@@ -146,7 +146,7 @@ public class BrandList {
             System.out.println("Price không hợp lệ!");
             return;
         }
-
+        //gọi hàm để cập nhật
         Brand br = brandList.get(pos);
         br.setBrandName(brandName);
         br.setSoundBrand(soundBrand);
