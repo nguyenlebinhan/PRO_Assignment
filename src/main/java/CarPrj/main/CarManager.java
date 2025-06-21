@@ -22,8 +22,8 @@ import CarPrj.lists.CarList;
 
 public class CarManager {
     
-     public static void main(String[] args) {
-        // 1. Tạo danh sách các lựa chọn
+    public static void main(String[] args) {
+        // 1. Create a list of menu options
         ArrayList<String> ops = new ArrayList<>();
         ops.add("List all Brands");
         ops.add("Add new Brand");
@@ -38,19 +38,19 @@ public class CarManager {
         ops.add("Save Cars to file");
         ops.add("Exit");
         
-         // 2. Tạo BrandList rỗng và load từ file
+        // 2. Create an empty BrandList and load data from file
         BrandList brandList = new BrandList();
         brandList.loadFromFile("brands.txt");
         
-         // 3. Tạo CarList với brandList và load từ file
+        // 3. Create a CarList with brandList and load data from file
         CarList carList = new CarList(brandList);
         carList.loadFromFile("cars.txt");
         
-         // 4. Tạo menu
+        // 4. Create a menu
         Menu menu = new Menu();
         int choice;
         
-         do {
+        do {
             choice = menu.int_getChoice(ops);
             switch (choice) {
                 case 1:
@@ -98,5 +98,5 @@ public class CarManager {
                     System.out.println("Invalid option. Try again.");
             }
         } while (choice > 0 && choice < 12);
-     }
+    }
 }

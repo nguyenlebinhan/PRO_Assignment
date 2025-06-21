@@ -14,20 +14,20 @@ import CarPrj.entities.Brand;
  */
 public class Car implements Comparable<Car> {
     private String carID;
-    private Brand brand;        //// Brand là một lớp khác
+    private Brand brand;        // Brand is another class
     private String color;
     private String frameID;
     private String engineID;
 
-    public Car() {}//Constructor mặc định.
+    public Car() {} // Default constructor
 
     public Car(String carID, Brand brand, String color, String frameID, String engineID) {
-        this.carID = carID;         //carID mã xe
-        this.brand = brand;         //brand đối tượng brand (hãng xe)
-        this.color = color;         //color màu xe
-        this.frameID = frameID;     //frameID mã khung
-        this.engineID = engineID;   //engineID mã động cơ
-    } //Constructor có tham số để khởi tạo đối tượng Car.
+        this.carID = carID;         // carID: car identifier
+        this.brand = brand;         // brand: Brand object (car manufacturer)
+        this.color = color;         // color: car's color
+        this.frameID = frameID;     // frameID: frame identifier
+        this.engineID = engineID;   // engineID: engine identifier
+    } // Parameterized constructor to initialize a Car object
 
     public String getCarID() { return carID; }
     public void setCarID(String carID) { this.carID = carID; }
@@ -47,16 +47,16 @@ public class Car implements Comparable<Car> {
     @Override
     public String toString() {
         return carID + ", " + brand.getBrandID() + ", " + color + ", " + frameID + ", " + engineID;
-    } //Trả về chuỗi định dạng đơn giản để hiển thị
+    } // Returns a simple formatted string for display
 
     public String screenString() {
         return brand.toString() + ", " + carID + ", " + color + ", " + frameID + ", " + engineID;
-    } //Trả về thông tin hiển thị đẹp mắt (dùng khi in danh sách)
+    } // Returns a nicely formatted display string (used when printing list)
 
     @Override
     public int compareTo(Car c) {
         int d = this.brand.getBrandName().compareTo(c.brand.getBrandName());
         if (d != 0) return d;
-        return this.carID.compareTo(c.carID);   // nếu cùng hãng, so sánh carID
-    } //So sánh xe theo Brand name (tên hãng) để sắp xếp
+        return this.carID.compareTo(c.carID);   // If same brand, compare by carID
+    } // Compare cars by brand name for sorting
 }

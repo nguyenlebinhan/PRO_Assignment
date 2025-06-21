@@ -17,9 +17,12 @@ public class Brand {
     private String soundBrand;
     private double price;
 
-    public Brand(){
-        this("","","",0);
+    // Default constructor
+    public Brand() {
+        this("", "", "", 0);
     }
+
+    // Parameterized constructor
     public Brand(String brandID, String brandName, String soundBrand, double price) {
         this.brandID = brandID;
         this.brandName = brandName;
@@ -59,6 +62,7 @@ public class Brand {
         this.price = price;
     }
 
+    // Returns brand info in the format: <ID, Name, Sound:Price>
     @Override
     public String toString() {
         return "<" + brandID + ", " + brandName + ", " + soundBrand + ":" + price + ">";

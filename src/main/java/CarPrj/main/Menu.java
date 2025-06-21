@@ -16,11 +16,11 @@ import java.util.Scanner;
 
 public class Menu {
     /**
-     * Hiển thị danh sách các tùy chọn và yêu cầu người dùng nhập lựa chọn.
+     * Displays the list of options and asks the user to choose one.
      *
-     * options danh sách các tùy chọn
-     * <E> kiểu dữ liệu của phần tử trong danh sách
-     * @return chỉ số lựa chọn của người dùng (từ 1 đến options.size())
+     * @param options the list of options
+     * @param <E> the type of elements in the list
+     * @return the index of the user's choice (from 1 to options.size())
      */
     public int int_getChoice(ArrayList options) {
         for (int i = 0; i < options.size(); i++) {
@@ -29,18 +29,20 @@ public class Menu {
 
         System.out.print("Please choose an option 1.." + options.size() + ": ");
         Scanner sc = new Scanner(System.in);
-        return sc.nextInt(); // Không kiểm tra ngoại lệ ở đây, nên cẩn thận nếu input không hợp lệ
+        return sc.nextInt(); // No exception handling here, so be careful with invalid input
     }
 
     /**
-     * Gọi phương thức int_getChoice và trả về đối tượng được chọn trong danh sách.
-     * @return đối tượng được người dùng chọn
+     * Calls int_getChoice and returns the selected object from the list.
+     * 
+     * @param options the list of options
+     * @return the object selected by the user
      */
     public Object ref_getChoice(ArrayList options) {
         int choice;
         do {
             choice = int_getChoice(options);
         } while (choice < 1 || choice > options.size());
-        return options.get(choice - 1); // Trả về phần tử đã chọn (theo chỉ số)
+        return options.get(choice - 1); // Return the selected element (by index)
     }
 }
