@@ -1,5 +1,16 @@
 package CarPrj.entities;
 
+/**
+ * Represents a BMW brand.
+ * - Contains brandID, brandName, soundBrand, and price.
+ * - Used for associating with each car.
+ * - Provides toString() method for display and file saving.
+ * 
+ * @author Le Minh Quan
+ * @since 17-06-2025
+ * @version 1
+ */
+
 public class Brand {
     private String brandID;
     private String brandName;

@@ -3,6 +3,16 @@ import java.util.*;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Utility class to display menu options and get user choices.
+ * - int_getChoice(): gets user input as an integer.
+ * - ref_getChoice(): gets the object chosen by user from a list.
+ * - Used for both brand and car selection menus.
+ * 
+ * @author Le Minh Quan
+ * @since 17-06-2025
+ * @version 1
+ */
 
 public class Menu {
     /**

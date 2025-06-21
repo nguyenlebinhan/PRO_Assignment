@@ -2,9 +2,16 @@ package CarPrj.entities;
 import CarPrj.entities.Brand;
 
 /**
- * Lớp Car đại diện cho một chiếc xe hơi với thông tin cơ bản.
+ * Represents a car object in the showroom.
+ * - Includes carID, brand (as Brand object), color, frameID, engineID.
+ * - Implements Comparable to support sorting by brand name and car ID.
+ * - Includes toString() and screenString() for file and console output.
+ * - Getter methods like getCarID(), getFrameID(), getEngineID() support searching.
+ *
+ * @author Le Minh Quan
+ * @since 17-06-2025
+ * @version 1
  */
-
 public class Car implements Comparable<Car> {
     private String carID;
     private Brand brand;        //// Brand là một lớp khác

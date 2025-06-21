@@ -9,8 +9,14 @@ import CarPrj.lists.BrandList;
 import CarPrj.lists.CarList;
 
 /**
+ * Main controller class to manage the car showroom.
+ * - Loads brand and car data from files (brands.txt and cars.txt).
+ * - Displays a menu with 11 functions, such as listing, adding, updating, removing, saving cars/brands.
+ * - Handles user interactions and delegates tasks to BrandList and CarList.
  *
- * @author ADMIN
+ * @author Le Minh Quan
+ * @since 17-06-2025
+ * @version 1
  */
 
 
