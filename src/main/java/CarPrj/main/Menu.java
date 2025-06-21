@@ -22,14 +22,20 @@ public class Menu {
      * @param <E> the type of elements in the list
      * @return the index of the user's choice (from 1 to options.size())
      */
-    public int int_getChoice(ArrayList options) {
+    public int int_getChoice(ArrayList<?> options) {
         for (int i = 0; i < options.size(); i++) {
             System.out.println((i + 1) + ". " + options.get(i).toString());
         }
-
         System.out.print("Please choose an option 1.." + options.size() + ": ");
         Scanner sc = new Scanner(System.in);
-        return sc.nextInt(); // No exception handling here, so be careful with invalid input
+
+        // check for invalid input
+        while (!sc.hasNextInt()) {
+            System.out.print("Invalid option. Try again: ");
+            sc.next(); 
+        }
+        
+        return sc.nextInt();
     }
 
     /**
@@ -38,7 +44,7 @@ public class Menu {
      * @param options the list of options
      * @return the object selected by the user
      */
-    public Object ref_getChoice(ArrayList options) {
+    public <T> T ref_getChoice(ArrayList options) {
         int choice;
         do {
             choice = int_getChoice(options);
