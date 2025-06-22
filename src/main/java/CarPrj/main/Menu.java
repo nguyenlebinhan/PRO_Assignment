@@ -22,16 +22,33 @@ public class Menu {
      * @param <E> the type of elements in the list
      * @return the index of the user's choice (from 1 to options.size())
      */
-    public int int_getChoice(ArrayList options) {
+    public int int_getChoice(ArrayList<?> options) {
+    Scanner sc = new Scanner(System.in); // ideally use shared Scanner
+    int choice = -1;
+
+    while (true) {
+        // Display menu options
         for (int i = 0; i < options.size(); i++) {
-            System.out.println((i + 1) + ". " + options.get(i).toString());
+            System.out.println((i + 1) + ". " + options.get(i));
         }
 
-        System.out.print("Please choose an option 1.." + options.size() + ": ");
-        Scanner sc = new Scanner(System.in);
-        return sc.nextInt(); // No exception handling here, so be careful with invalid input
+        System.out.print("Please select an option (1.." + options.size() + "): ");
+        String input = sc.nextLine();
+
+        try {
+            choice = Integer.parseInt(input);
+            if (choice >= 1 && choice <= options.size()) {
+                break; // valid choice
+            } else {
+                System.out.println("Invalid choice. Please try again.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+        }
     }
 
+    return choice;
+}
     /**
      * Calls int_getChoice and returns the selected object from the list.
      * 
@@ -43,6 +60,6 @@ public class Menu {
         do {
             choice = int_getChoice(options);
         } while (choice < 1 || choice > options.size());
-        return options.get(choice - 1); // Return the selected element (by index)
+        return options.get(choice - 1); // Return the selected element
+        }
     }
-}
