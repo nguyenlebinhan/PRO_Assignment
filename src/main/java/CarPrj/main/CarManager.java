@@ -38,18 +38,25 @@ public class CarManager {
         ops.add("Save Cars to file");
         ops.add("Exit");
         
-        // 2. Create an empty BrandList and load data from file
+        // 2. Create an empty BrandList
         BrandList brandList = new BrandList();
-        brandList.loadFromFile("brands.txt");
-        
-        // 3. Create a CarList with brandList and load data from file
+
+        // 3. Create a CarList with brandList
         CarList carList = new CarList(brandList);
-        carList.loadFromFile("cars.txt");
         
         // 4. Create a menu
         Menu menu = new Menu();
+
+        // 5. Load data from file and check for exceptions
+        try {
+            brandList.loadFromFile("brands.txt");
+            carList.loadFromFile("cars.txt");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+     
         int choice;
-        
+        Scanner sc = new Scanner(System.in);
         do {
             choice = menu.int_getChoice(ops);
             switch (choice) {
@@ -60,7 +67,6 @@ public class CarManager {
                     brandList.addBrand();
                     break;
                 case 3:
-                    Scanner sc = new Scanner(System.in);
                     System.out.print("Enter brand ID to search: ");
                     String searchID = sc.nextLine();
                     int pos = brandList.searchID(searchID);
@@ -97,6 +103,7 @@ public class CarManager {
                 default:
                     System.out.println("Invalid option. Try again.");
             }
-        } while (choice > 0 && choice < 12);
+        } while (choice != 12);
+        sc.close();
     }
 }
