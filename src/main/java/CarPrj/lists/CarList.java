@@ -5,14 +5,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * 1 function to save data to file 'car.txt'.
  * 3 functions to search for a car by ID, frame ID, and engine ID.
  * NOTE: create getCarID(), getFrameID(), getEngineID() in Car.java
- * @author MinhPN
- * @since 2025-06-13
- * @version 1
+ * @author Nguyen Huu Thanh Vinh
+ * @since 2025-06-22
+ * @version 1.1
  */
 public class CarList extends ArrayList<Car> {
 
@@ -23,6 +24,56 @@ public class CarList extends ArrayList<Car> {
      * @param file The path of 'car.txt'.
      * @return true if the list is successfully saved; false if an error occurs or the list is empty.
      */
+    BrandList brandlist;
+    public CarList(BrandList bList) {
+        this.brandlist = bList;
+    }
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for (Car car : this) {
+            sb.append(car.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+    public String screenString() {
+        StringBuilder sb = new StringBuilder();
+        for (Car car : this) {
+            sb.append(car.screenString()).append("\n");
+        }
+        return sb.toString();
+    }
+    public boolean loadFromFile(String filename) {
+        try (BufferedReader bf = new BufferedReader(new Filename (filename))) {
+            String line;
+            this.clear();       // Clear the list before loading new data
+            while ((line = br.readline()) != null) {
+                String[] parts = line.split(", ");
+                if ((parts.length != 5)) continue; // Skip lines with incorrect format
+
+                String carID = parts[0].trim();
+                String brandID = parts[1].trim();
+                String color = parts[2].trim();
+                String frameID = parts[3].trim();
+                String engineID = parts[4].trim();
+
+                int pos = brandlist.searchID(brandID);
+                if (pos == -1) continue; // Skip if brandID not found
+                Brand b = brandlist.get(pos);
+
+                Car car = new Car(carID, b, color, frameID, engineID);
+                this.add(car); // Add the car to the list
+            }
+            return true; // Successfully loaded
+        } catch(IOException e) {
+            System.out.println("Error loading from file: " + e.getMessage());
+            return false; // Error occurred while loading
+        }
+    }
+
+
+
+
     public boolean saveToFile(String file) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
             //  Check is list is empty
@@ -83,6 +134,40 @@ public class CarList extends ArrayList<Car> {
             }
         }
         return -1;
+    }
+
+    public void addCar(Car car) {
+        Scanner sc = new Scanner(System.in);
+
+        String carID;
+        do {
+            System.out.print("Enter car ID: ");
+            carID = sc.nextLine().trim();
+        } while (searchID(carID) >= 0);
+        
+        Brand b = brandList.getUserChoice();
+
+        String color;
+        do {
+            System.out.print("Enter car color: ");
+            color = sc.nextLine().trim();
+        } while (color.isEmpty()); // Ensure color is not empty
+        
+        String frameID;
+        do {
+            System.out.print("Enter frame ID (F0000): ");
+            frameID = sc.nextLine().trim();
+        } while (!frameID.matches("F\\d{4}") || searchFrame(frameID) >= 0); // Ensure frame ID matches F0000 format
+
+        String engineID;
+        do {
+            System.out.print("Enter engine ID (E0000): ");
+            engineID = sc.nextLine().trim();
+        } while (!engineID.matches("E\\d{5}") || searchEngine(engineID) >= 0); // Ensure engine ID matches E0000 format
+
+        Car car = new Car(carID, b, color, frameID, engineID);
+        this.add(car); // Add the new car to the list  
+        System.out.println("Car added successfully: ");
     }
 
 }
