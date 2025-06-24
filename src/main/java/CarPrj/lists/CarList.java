@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
 /**
  * 1 function to save data to file 'car.txt'.
  * 3 functions to search for a car by ID, frame ID, and engine ID.
@@ -24,9 +25,9 @@ public class CarList extends ArrayList<Car> {
      * @param file The path of 'car.txt'.
      * @return true if the list is successfully saved; false if an error occurs or the list is empty.
      */
-    BrandList brandlist;
+    BrandList brandList;
     public CarList(BrandList bList) {
-        this.brandlist = bList;
+        this.brandList = bList;
     }
     @Override
     public String toString(){
@@ -44,10 +45,10 @@ public class CarList extends ArrayList<Car> {
         return sb.toString();
     }
     public boolean loadFromFile(String filename) {
-        try (BufferedReader bf = new BufferedReader(new Filename (filename))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             this.clear();       // Clear the list before loading new data
-            while ((line = br.readline()) != null) {
+            while ((line = br.readLine()) != null) {
                 String[] parts = line.split(", ");
                 if ((parts.length != 5)) continue; // Skip lines with incorrect format
 
@@ -57,9 +58,9 @@ public class CarList extends ArrayList<Car> {
                 String frameID = parts[3].trim();
                 String engineID = parts[4].trim();
 
-                int pos = brandlist.searchID(brandID);
+                int pos = brandList.searchID(brandID);
                 if (pos == -1) continue; // Skip if brandID not found
-                Brand b = brandlist.get(pos);
+                Brand b = brandList.get(pos);
 
                 Car car = new Car(carID, b, color, frameID, engineID);
                 this.add(car); // Add the car to the list
@@ -136,7 +137,7 @@ public class CarList extends ArrayList<Car> {
         return -1;
     }
 
-    public void addCar(Car car) {
+    public void addCar() {
         Scanner sc = new Scanner(System.in);
 
         String carID;
@@ -146,6 +147,10 @@ public class CarList extends ArrayList<Car> {
         } while (searchID(carID) >= 0);
         
         Brand b = brandList.getUserChoice();
+        if (b == null) {
+            System.out.println("No brand selected. Aborting...");
+            return;
+        }
 
         String color;
         do {
@@ -163,7 +168,7 @@ public class CarList extends ArrayList<Car> {
         do {
             System.out.print("Enter engine ID (E0000): ");
             engineID = sc.nextLine().trim();
-        } while (!engineID.matches("E\\d{5}") || searchEngine(engineID) >= 0); // Ensure engine ID matches E0000 format
+        } while (!engineID.matches("E\\d{4}") || searchEngine(engineID) >= 0); // Ensure engine ID matches E0000 format
 
         Car car = new Car(carID, b, color, frameID, engineID);
         this.add(car); // Add the new car to the list  
