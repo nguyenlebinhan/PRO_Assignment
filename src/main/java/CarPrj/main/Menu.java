@@ -15,40 +15,50 @@ import java.util.Scanner;
  */
 
 public class Menu {
+    private static final Scanner sc = new Scanner(System.in);  // use a shared Scanner
+
     /**
-     * Displays the list of options and asks the user to choose one.
+     * Displays a list of options and prompts the user to select one.
+     * Ensures that the input is a valid integer within the correct range.
      *
      * @param options the list of options
-     * @param <E> the type of elements in the list
-     * @return the index of the user's choice (from 1 to options.size())
+     * @return the user's choice as an integer (1-based index)
      */
     public int int_getChoice(ArrayList<?> options) {
-        for (int i = 0; i < options.size(); i++) {
-            System.out.println((i + 1) + ". " + options.get(i).toString());
-        }
-        System.out.print("Please choose an option 1.." + options.size() + ": ");
-        Scanner sc = new Scanner(System.in);
+        int choice = -1;
 
-        // check for invalid input
-        while (!sc.hasNextInt()) {
-            System.out.print("Invalid option. Try again: ");
-            sc.next(); 
+        while (true) {
+            // Display menu options
+            for (int i = 0; i < options.size(); i++) {
+                System.out.println((i + 1) + ". " + options.get(i));
+            }
+
+            System.out.print("Please select an option (1.." + options.size() + "): ");
+            String input = sc.nextLine();
+
+            try {
+                choice = Integer.parseInt(input);
+                if (choice >= 1 && choice <= options.size()) {
+                    break; // valid choice
+                } else {
+                    System.out.println("Invalid choice. Please try again.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
         }
-        
-        return sc.nextInt();
+
+        return choice;
     }
 
     /**
      * Calls int_getChoice and returns the selected object from the list.
-     * 
+     *
      * @param options the list of options
      * @return the object selected by the user
      */
-    public <T> T ref_getChoice(ArrayList options) {
-        int choice;
-        do {
-            choice = int_getChoice(options);
-        } while (choice < 1 || choice > options.size());
-        return options.get(choice - 1); // Return the selected element (by index)
+    public <T> T ref_getChoice(ArrayList<T> options) {
+        int choice = int_getChoice(options);
+        return options.get(choice - 1); // Return the selected element
     }
 }
