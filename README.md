@@ -4,13 +4,13 @@
 # Hướng dẫn làm việc với Git
 
 ## 🚫 Không commit trực tiếp vào nhánh `main`
-Để đảm bảo chất lượng code và quy trình làm việc chuyên nghiệp, **không commit trực tiếp** vào nhánh `main`. Hãy sử dụng **branch** riêng cho từng tính năng hoặc lỗi cần sửa.
+Để đảm bảo chất lượng code và quy trình làm việc chuyên nghiệp, **không commit trực tiếp** vào nhánh `main`. Hãy sử dụng **brand** riêng cho từng tính năng hoặc lỗi cần sửa.
 
 ## 🔀 Hướng dẫn Merge
 ### 1. Kiểm tra trạng thái nhánh hiện tại
 Trước khi merge, cần chắc chắn bạn đang làm việc trên đúng nhánh:
 ```bash
-git branch
+git brand
 ```
 
 ### 2. Chuyển về nhánh `main` (hoặc nhánh chính cần merge)
@@ -35,7 +35,7 @@ git commit -m "Giải quyết xung đột"
 git push origin main
 ```
 
-## 🌿 Cách tạo branch mới để làm việc
+## 🌿 Cách tạo brand mới để làm việc
 ### 1. Tạo một nhánh mới
 ```bash
 git checkout -b ten-nhanh-moi
@@ -46,12 +46,12 @@ git checkout -b ten-nhanh-moi
 git push -u origin ten-nhanh-moi
 ```
 
-Sau khi tạo xong branch, có thể làm việc trên nhánh đó mà không ảnh hưởng đến `main`.
+Sau khi tạo xong brand, có thể làm việc trên nhánh đó mà không ảnh hưởng đến `main`.
 
 ---
 
 🛠 **Ghi nhớ:**  
-- Luôn kiểm tra trạng thái branch trước khi commit: `git status`
+- Luôn kiểm tra trạng thái brand trước khi commit: `git status`
 - Thực hiện `git pull` thường xuyên để cập nhật code mới từ nhánh chính.
 - Sử dụng **pull request** để đảm bảo code được review trước khi merge vào `main`.
 

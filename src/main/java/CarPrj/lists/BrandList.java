@@ -34,11 +34,12 @@ public class BrandList {
             try(BufferedReader br=new BufferedReader(new FileReader(filename))){
                 String line;
                 while((line=br.readLine())!=null){
-                    String[] mainParts=line.split(":"); //Tách phần tử cuối cùng
+                    String[] mainParts=line.split(":");//split the line into two parts using ':' as the delimiter
                     if(mainParts.length ==2){
-                        String[]elements=mainParts[0].split(","); // tách phần tử còn lại chứa dấu phẩy ngăn cách
-                        Brand  branch=new Brand(elements[0].trim(),elements[1].trim(),elements[2].trim(),Double.parseDouble(mainParts[1].trim()));
-                        brandList.add(branch);
+                        String[]elements=mainParts[0].split(","); //split the first part into three elements using ',' as the delimiter
+                        //create a new Brand object and add it to the brandList
+                        Brand  brand=new Brand(elements[0].trim(),elements[1].trim(),elements[2].trim(),Double.parseDouble(mainParts[1].trim()));
+                        brandList.add(brand);
                     }
                 }
             }catch (IOException  e){
@@ -72,9 +73,9 @@ public class BrandList {
 
     // Function to search for a brand by its ID
     // Returns the index of the brand if found, otherwise returns -1
-    public int searchID(String branchID) {
+    public int searchID(String brandID) {
         for(int i=0;i<brandList.size();i++){
-            if(brandList.get(i).getBrandID().equals(branchID)){
+            if(brandList.get(i).getBrandID().equals(brandID)){
                 return i;
             }
         }
