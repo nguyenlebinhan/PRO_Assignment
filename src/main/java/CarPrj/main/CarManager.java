@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import CarPrj.lists.BrandList;
 import CarPrj.lists.CarList;
-
+import java.util.*;
 /**
  * Main controller class to manage the car showroom.
  * - Loads brand and car data from files (brands.txt and cars.txt).
@@ -61,7 +61,7 @@ public class CarManager {
             choice = menu.int_getChoice(ops);
             switch (choice) {
                 case 1:
-                    brandList.listBrands();
+                    brandList.listBrand();
                     break;
                 case 2:
                     brandList.addBrand();

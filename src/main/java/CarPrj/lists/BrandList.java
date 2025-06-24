@@ -1,11 +1,4 @@
 package CarPrj.lists;
-
-
-
-
-
-
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,8 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import CarPrj.entities.Brand;
 import java.util.List;
-
-
 
 /**
  * 1 function to save data to file 'brands.txt'.
@@ -43,9 +34,9 @@ public class BrandList {
             try(BufferedReader br=new BufferedReader(new FileReader(filename))){
                 String line;
                 while((line=br.readLine())!=null){
-                    String[] mainParts=line.split(":"); //split the line into two parts at the first colon
+                    String[] mainParts=line.split(":"); //Tách phần tử cuối cùng
                     if(mainParts.length ==2){
-                        String[]elements=mainParts[0].split(","); // split the first part into elements at each comma
+                        String[]elements=mainParts[0].split(","); // tách phần tử còn lại chứa dấu phẩy ngăn cách
                         Brand  branch=new Brand(elements[0].trim(),elements[1].trim(),elements[2].trim(),Double.parseDouble(mainParts[1].trim()));
                         brandList.add(branch);
                     }
@@ -95,7 +86,7 @@ public class BrandList {
     }
     
     
-    public void addBranch(){
+    public void addBrand(){
         
 
     }
@@ -108,7 +99,7 @@ public class BrandList {
 
     // Function to list all brands
     // Prints each brand's details to the console
-    public void listBranch(){
+    public void listBrand(){
         brandList.forEach(System.out::println);
     }
 
