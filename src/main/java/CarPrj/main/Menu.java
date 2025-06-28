@@ -1,6 +1,5 @@
-package CarPrj.main;
+ package CarPrj.main;
 import java.util.*;
-import java.util.List;
 import java.util.Scanner;
 
 /**

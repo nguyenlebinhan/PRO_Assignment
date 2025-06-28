@@ -4,7 +4,6 @@
 
 package CarPrj.main;
 import java.util.ArrayList;
-import java.util.List;
 import CarPrj.lists.BrandList;
 import CarPrj.lists.CarList;
 import java.util.*;
@@ -71,7 +70,7 @@ public class CarManager {
                     String searchID = sc.nextLine();
                     int pos = brandList.searchID(searchID);
                     if (pos < 0) System.out.println("Not found!");
-                    else System.out.println(brandList.get(pos));
+//                    else System.out.println(brandList.get(pos)); ???
                     break;
                 case 4:
                     brandList.updateBrand();

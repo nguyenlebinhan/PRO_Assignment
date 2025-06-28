@@ -17,7 +17,7 @@ import java.util.List;
  * @version 1
  */
 
-public class BrandList {
+public class BrandList extends ArrayList<Brand> {
     private final List<Brand> brandList;
     public BrandList (){
         this.brandList=new ArrayList<>();
@@ -67,6 +67,7 @@ public class BrandList {
             System.out.println("Lỗi khi gi file: "+e.getMessage());
             return false;
         }
+        System.out.println("TEST OK");
         return true;
     }
     
@@ -83,17 +84,18 @@ public class BrandList {
     }
     
     public Brand getUserChoice(){
-        
+        System.out.println("test ok");
+        return null;
     }
     
     
     public void addBrand(){
-        
+        System.out.println("test ok");
 
     }
     
     public void UpdateBrand(){
-        
+        System.out.println("test ok");
     }
     
     
@@ -101,7 +103,16 @@ public class BrandList {
     // Function to list all brands
     // Prints each brand's details to the console
     public void listBrand(){
+        loadFromFile("C:\\Users\\_71.81\\Documents\\u\\Term 2\\PRO192\\PRO192_MinhPN\\asm\\PRO_Assignment\\src\\main\\java\\CarPrj\\data\\brands.txt");
         brandList.forEach(System.out::println);
+    }
+
+    public void updateBrand() {
+        System.out.println("test ok");
+    }
+    
+    public ArrayList<Brand> getBrands() {
+        return new ArrayList<>(this); 
     }
 
 }
