@@ -11,10 +11,9 @@ import java.util.*;
 import CarPrj.entities.Brand;
 import CarPrj.main.Menu;
 import CarPrj.lists.BrandList;
+
 /**
- * 1 function to save data to file 'car.txt'. 3 functions to search for a car by
- * ID, frame ID, and engine ID. NOTE: create getCarID(), getFrameID(),
- * getEngineID() in Car.java
+ * 1 function to save data to file 'car.txt'. 3 functions to search for a car by ID, frame ID, and engine ID. NOTE: create getCarID(), getFrameID(), getEngineID() in Car.java
  *
  * @author MinhPN
  * @since 2025-06-13
@@ -23,21 +22,19 @@ import CarPrj.lists.BrandList;
 public class CarList extends ArrayList<Car> {
 
     Menu menu = new Menu();
-
+    BrandList brandlist = new BrandList();
     Scanner sc = new Scanner(System.in);
     private final BrandList brandList;
 
     public CarList(BrandList brandList) {
-        this.brandList = brandList;    
+        this.brandList = brandList;
     }
 
     /**
-     * Saves the list of Car objects to 'car.txt' Each Car's information is
-     * written in a single line using toString().
+     * Saves the list of Car objects to 'car.txt' Each Car's information is written in a single line using toString().
      *
      * @param file The path of 'car.txt'.
-     * @return true if the list is successfully saved; false if an error occurs
-     * or the list is empty.
+     * @return true if the list is successfully saved; false if an error occurs or the list is empty.
      */
     public boolean saveToFile(String file) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
@@ -118,8 +115,8 @@ public class CarList extends ArrayList<Car> {
         //brand menu
         System.out.println("Select car's brand");
         System.out.println("------------------------------------");
-        BrandList brandlist = new BrandList();
-        Brand b = (Brand) menu.ref_getChoice( brandlist.getBrands());
+
+        Brand b = (Brand) menu.ref_getChoice(brandlist.getBrandList());
         do {
             System.out.print("    Color:");
             color = sc.nextLine().toLowerCase();
@@ -130,24 +127,25 @@ public class CarList extends ArrayList<Car> {
         do {
             System.out.print("    FrameID: ");
             frameID = sc.nextLine().toUpperCase();
-            if (!frameID.matches("^F//4d$")) {
+            if (!frameID.matches("^F\\d{4}$")) {
                 System.out.println("Format: F and 4 digits!");
             }
             if (searchFrame(frameID) >= 0) {
                 System.out.println("The frameID is duplicated!");
             }
-        } while (!frameID.matches("^F//4d$") || searchFrame(frameID) >= 0);
+        } while (!frameID.matches("^F\\d{4}$") || searchFrame(frameID) >= 0);
         do {
             System.out.print("    EngineID: ");
             engineID = sc.nextLine().toUpperCase();
-            if (!engineID.matches("^E//4d$")) {
+            if (!engineID.matches("^E\\d{4}$")) {
                 System.out.println("Format: E and 4 digits!");
             }
             if (searchEngine(engineID) >= 0) {
                 System.out.println("The egineID is duplicated!");
             }
-        } while (!engineID.matches("^E//4d$") || searchEngine(engineID) >= 0);
+        } while (!engineID.matches("^E\\d{4}$") || searchEngine(engineID) >= 0);
         this.add(new Car(carID, b, color, frameID, engineID));
+        System.out.println("Car added sucessfully");
     }
 
     public void printBasedBrandName() {
@@ -191,8 +189,7 @@ public class CarList extends ArrayList<Car> {
             return false;
         } else {
             //create a menu
-        BrandList brandlist = new BrandList();
-        Brand b = (Brand) menu.ref_getChoice(brandlist.getBrands());
+            Brand b = (Brand) menu.ref_getChoice(brandlist.getBrandList());
             do {
                 System.out.print("    Color:");
                 color = sc.nextLine().toLowerCase();
@@ -203,28 +200,29 @@ public class CarList extends ArrayList<Car> {
             do {
                 System.out.print("    FrameID: ");
                 frameID = sc.nextLine().toUpperCase();
-                if (!frameID.matches("^F//4d$")) {
+                if (!frameID.matches("^F\\d{4}$")) {
                     System.out.println("Format: F and 4 digits!");
                 }
                 if (searchFrame(frameID) >= 0) {
                     System.out.println("The frameID is duplicated!");
                 }
-            } while (!frameID.matches("^F//4d$") || searchFrame(frameID) >= 0);
+            } while (!frameID.matches("^F\\d{4}$") || searchFrame(frameID) >= 0);
             do {
                 System.out.print("    EngineID: ");
                 engineID = sc.nextLine().toUpperCase();
-                if (!engineID.matches("^E//4d$")) {
+                if (!engineID.matches("^E\\d{4}$")) {
                     System.out.println("Format: E and 4 digits!");
                 }
                 if (searchEngine(engineID) >= 0) {
                     System.out.println("The egineID is duplicated!");
                 }
-            } while (!engineID.matches("^E//4d$") || searchEngine(engineID) >= 0);
+            } while (!engineID.matches("^E\\d{4}$") || searchEngine(engineID) >= 0);
             get(pos).setBrand(b);
             get(pos).setColor(color);
             get(pos).setFrameID(frameID);
             get(pos).setEngineID(engineID);
         }
+        System.out.println("Car updated sucessfully");
         return true;
     }
 
@@ -237,10 +235,10 @@ public class CarList extends ArrayList<Car> {
     }
 
     public void loadFromFile(String carstxt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("oke");
     }
 
     public void listCars() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("oke");
     }
 }

@@ -1,4 +1,6 @@
  package CarPrj.main;
+import CarPrj.entities.Brand;
+import CarPrj.lists.BrandList;
 import java.util.*;
 import java.util.Scanner;
 
@@ -46,10 +48,10 @@ public class Menu {
                 System.out.println("Invalid input. Please enter a number.");
             }
         }
-
+        
         return choice;
     }
-
+    
     /**
      * Calls int_getChoice and returns the selected object from the list.
      *

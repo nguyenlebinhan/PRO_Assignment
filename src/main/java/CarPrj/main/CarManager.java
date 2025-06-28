@@ -58,6 +58,8 @@ public class CarManager {
         Scanner sc = new Scanner(System.in);
         do {
             choice = menu.int_getChoice(ops);
+            BrandList cl = new BrandList();
+            cl.loadFromFile("C:\\Users\\_71.81\\Documents\\u\\Term 2\\PRO192\\PRO192_MinhPN\\asm\\PRO_Assignment\\src\\main\\java\\CarPrj\\data\\brands.txt");
             switch (choice) {
                 case 1:
                     brandList.listBrand();
