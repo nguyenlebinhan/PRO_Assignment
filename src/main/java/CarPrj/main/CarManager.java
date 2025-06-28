@@ -4,7 +4,6 @@
 
 package CarPrj.main;
 import java.util.ArrayList;
-import java.util.List;
 import CarPrj.lists.BrandList;
 import CarPrj.lists.CarList;
 import java.util.*;
@@ -59,6 +58,8 @@ public class CarManager {
         Scanner sc = new Scanner(System.in);
         do {
             choice = menu.int_getChoice(ops);
+            BrandList cl = new BrandList();
+            cl.loadFromFile("C:\\Users\\_71.81\\Documents\\u\\Term 2\\PRO192\\PRO192_MinhPN\\asm\\PRO_Assignment\\src\\main\\java\\CarPrj\\data\\brands.txt");
             switch (choice) {
                 case 1:
                     brandList.listBrand();
@@ -71,7 +72,7 @@ public class CarManager {
                     String searchID = sc.nextLine();
                     int pos = brandList.searchID(searchID);
                     if (pos < 0) System.out.println("Not found!");
-                    else System.out.println(brandList.get(pos));
+//                    else System.out.println(brandList.get(pos)); ???
                     break;
                 case 4:
                     brandList.updateBrand();
