@@ -1,17 +1,14 @@
 package CarPrj.entities;
 
 /**
- * Represents a BMW brand.
- * - Contains brandID, brandName, soundBrand, and price.
- * - Used for associating with each car.
- * - Provides toString() method for display and file saving.
- * 
+ * Represents a car brand. - Each brand has an ID, name, sound system brand, and price. - Used in Car objects and displayed in brand-related operations. - Includes getters, setters, and toString() for display and file output.
+ *
  * @author Le Minh Quan
  * @since 17-06-2025
  * @version 1
  */
-
 public class Brand {
+
     private String brandID;
     private String brandName;
     private String soundBrand;
@@ -19,7 +16,6 @@ public class Brand {
 
     // Default constructor
     public Brand() {
-        this("", "", "", 0);
     }
 
     // Parameterized constructor
@@ -30,6 +26,7 @@ public class Brand {
         this.price = price;
     }
 
+    // Getters and Setters
     public String getBrandID() {
         return brandID;
     }
@@ -62,10 +59,9 @@ public class Brand {
         this.price = price;
     }
 
-    // Returns brand info in the format: <ID, Name, Sound:Price>
+    // Output format: brandID, brandName, soundBrand:price
     @Override
     public String toString() {
-        return "<" + brandID + ", " + brandName + ", " + soundBrand + ":" + price + ">";
+        return brandID + ", " + brandName + ", " + soundBrand + ":" + price;
     }
 }
-
