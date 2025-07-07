@@ -2,7 +2,6 @@ package CarPrj.entities;
 
 import java.io.*;
 import java.util.*;
-import CarPrj.Menu;
 
 public class BrandList extends ArrayList<Brand> {
 
@@ -213,32 +212,9 @@ public class BrandList extends ArrayList<Brand> {
         }
     }
 
-    public void printTable() throws FileNotFoundException, IOException {
-        this.clear(); // if you want to reset the list before loading new data
-
-        BufferedReader br = new BufferedReader(new FileReader("src/main/java/CarPrj/data/brands.txt"));
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] mainParts = line.split(":");
-            if (mainParts.length == 2) {
-                String[] elements = mainParts[0].split(",");
-
-                if (elements.length == 3) {
-                    String brandID = elements[0].trim();
-                    String brandName = elements[1].trim();
-                    String soundBrand = elements[2].trim();
-                    double price = Double.parseDouble(mainParts[1].trim());
-
-                    Brand brand = new Brand(brandID, brandName, soundBrand, price);
-                    this.add(brand); // add to the current list
-                }
-            }
-        }
-        br.close();
-
-        // Header
-        System.out.printf("%-15s %-35s %-30s %-10s\n", "Brand ID", "Brand Name", "Sound", "Price");
-        System.out.println("==========================================================================================================================================================================================================================================================================");
+    public void printTable() {
+        System.out.printf("%-15s %-35s %-30s %-10s\n", "Brand ID", "Brand name", "Sound", "Price");
+        System.out.println("============================================================================================================");
         for (Brand brand : this) {
             System.out.printf("%-15s %-35s %-30s %-10.2f\n",
                     brand.getBrandID(),

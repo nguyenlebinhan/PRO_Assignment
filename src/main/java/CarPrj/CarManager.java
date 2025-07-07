@@ -1,5 +1,6 @@
 package CarPrj;
 
+import CarPrj.entities.Menu;
 import CarPrj.entities.*;
 import java.io.IOException;
 import java.util.*;
@@ -20,7 +21,7 @@ public class CarManager {
     private static final Menu menu = new Menu();
     private static final Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // Load files
         try {
             boolean brandLoaded = brandList.loadFromFile(BRANDS_PATH);
@@ -54,7 +55,7 @@ public class CarManager {
         int choice;
         do {
             choice = menu.int_getChoice(ops);
-            System.out.println("==========================================================================================================================================================================================================================================================================");
+            System.out.println("============================================================================================================");
             switch (choice) {
                 case 1:
                     brandList.printTable();
@@ -91,7 +92,7 @@ public class CarManager {
                     }
                     break;
                 case 6:
-                    carList.listCars();
+                    carList.printTable();
                     break;
                 case 7:
                     carList.printBasedBrandName();
@@ -134,7 +135,7 @@ public class CarManager {
                 default:
                     System.out.println("[Invalid option. Try again]");
             }
-            System.out.println("==========================================================================================================================================================================================================================================================================");
+            System.out.println("============================================================================================================");
         } while (choice != 12);
     }
 }

@@ -1,4 +1,4 @@
-package CarPrj;
+package CarPrj.entities;
 
 import java.util.*;
 

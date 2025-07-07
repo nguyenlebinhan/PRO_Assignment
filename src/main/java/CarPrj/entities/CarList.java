@@ -2,7 +2,6 @@ package CarPrj.entities;
 
 import java.io.*;
 import java.util.*;
-import CarPrj.Menu;
 
 public class CarList extends ArrayList<Car> {
 
@@ -292,7 +291,7 @@ public class CarList extends ArrayList<Car> {
                 break;
             }
         } while (true);
-        
+
         int count = 0;
         for (Car car : this) {
             if (car.getBrand().getBrandName().toLowerCase().contains(aPartOfBrandName.toLowerCase())) {
@@ -303,6 +302,20 @@ public class CarList extends ArrayList<Car> {
 
         if (count == 0) {
             System.out.println("[No car is detected]");
+        }
+    }
+
+    public void printTable() {
+        System.out.printf("%-35s %-15s %-15s %-15s %-15s\n", "Brand", "Car ID", "Color", "Frame ID", "Engine ID");
+        System.out.println("============================================================================================================");
+        for (Car car : this) {
+            System.out.printf("%-35s %-15s %-15s %-15s %-15s\n",
+                    car.getBrand().getBrandName(),
+                    car.getCarID(),
+                    car.getColor(),
+                    car.getFrameID(),
+                    car.getEngineID()
+            );
         }
     }
 }
