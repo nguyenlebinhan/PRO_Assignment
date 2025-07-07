@@ -21,16 +21,18 @@ public class BrandList extends ArrayList<Brand> {
                 String[] mainParts = line.split(":");
                 if (mainParts.length == 2) {
                     String[] elements = mainParts[0].split(",");
+
                     String brandID = elements[0].trim();
                     String brandName = elements[1].trim();
                     String soundBrand = elements[2].trim();
                     double price = Double.parseDouble(mainParts[1].trim());
+
                     this.add(new Brand(brandID, brandName, soundBrand, price));
                 }
             }
             return true;
         } catch (IOException e) {
-            System.out.println("[" + e.getMessage() + "]");
+            System.out.println("[Error: " + e.getMessage() + "]");
             return false;
         }
     }
@@ -49,7 +51,7 @@ public class BrandList extends ArrayList<Brand> {
             }
             return true;
         } catch (IOException e) {
-            System.out.println("[" + e.getMessage() + "]");
+            System.out.println("[Error: " + e.getMessage() + "]");
             return false;
         }
     }
@@ -122,7 +124,7 @@ public class BrandList extends ArrayList<Brand> {
                 }
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("[" + e.getMessage() + "]");
+                System.out.println("[Error: " + e.getMessage() + "]");
             }
         } while (true);
 
@@ -137,15 +139,19 @@ public class BrandList extends ArrayList<Brand> {
                 return false;
             }
 
+            String id;
             Scanner sc = new Scanner(System.in);
-            System.out.print("- Enter brand ID to update: ");
-            String id = sc.nextLine().trim();
-            if (id.isEmpty()) {
-                System.out.println("[ID cannot be blank]");
-            }
+            do {
+                System.out.print("- Enter brand ID to update: ");
+                id = sc.nextLine().trim();
+                if (id.isEmpty()) {
+                    System.out.println("[ID cannot be blank]");
+                } else {
+                    break;
+                }
+            } while (true);
 
             int pos = searchID(id);
-
             if (pos < 0) {
                 System.out.println("[Brand not found]");
                 return false;
@@ -187,7 +193,7 @@ public class BrandList extends ArrayList<Brand> {
                         System.out.println("[price must be positive]");
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("[" + e.getMessage() + "]");
+                    System.out.println("[Error: " + e.getMessage() + "]");
                 }
             }
 
@@ -196,7 +202,7 @@ public class BrandList extends ArrayList<Brand> {
             return true;
 
         } catch (Exception e) {
-            System.out.println("[" + e.getMessage() + "]");
+            System.out.println("[Error: " + e.getMessage() + "]");
             return false;
         }
     }
@@ -204,6 +210,42 @@ public class BrandList extends ArrayList<Brand> {
     public void listBrand() {
         for (Brand brand : this) {
             System.out.println(brand);
+        }
+    }
+
+    public void printTable() throws FileNotFoundException, IOException {
+        this.clear(); // if you want to reset the list before loading new data
+
+        BufferedReader br = new BufferedReader(new FileReader("src/main/java/CarPrj/data/brands.txt"));
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] mainParts = line.split(":");
+            if (mainParts.length == 2) {
+                String[] elements = mainParts[0].split(",");
+
+                if (elements.length == 3) {
+                    String brandID = elements[0].trim();
+                    String brandName = elements[1].trim();
+                    String soundBrand = elements[2].trim();
+                    double price = Double.parseDouble(mainParts[1].trim());
+
+                    Brand brand = new Brand(brandID, brandName, soundBrand, price);
+                    this.add(brand); // add to the current list
+                }
+            }
+        }
+        br.close();
+
+        // Header
+        System.out.printf("%-15s %-35s %-30s %-10s\n", "Brand ID", "Brand Name", "Sound", "Price");
+        System.out.println("==========================================================================================================================================================================================================================================================================");
+        for (Brand brand : this) {
+            System.out.printf("%-15s %-35s %-30s %-10.2f\n",
+                    brand.getBrandID(),
+                    brand.getBrandName(),
+                    brand.getSoundBrand(),
+                    brand.getPrice()
+            );
         }
     }
 

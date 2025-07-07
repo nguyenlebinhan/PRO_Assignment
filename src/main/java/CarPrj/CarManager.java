@@ -1,6 +1,7 @@
 package CarPrj;
 
 import CarPrj.entities.*;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -19,7 +20,8 @@ public class CarManager {
     private static final Menu menu = new Menu();
     private static final Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        // Load files
         try {
             boolean brandLoaded = brandList.loadFromFile(BRANDS_PATH);
             boolean carLoaded = carList.loadFromFile(CARS_PATH);
@@ -33,6 +35,7 @@ public class CarManager {
             return;
         }
 
+        // Menu options
         ArrayList<String> ops = new ArrayList<>();
         ops.add("List all brands");
         ops.add("Add new brand");
@@ -40,27 +43,36 @@ public class CarManager {
         ops.add("Update a brand");
         ops.add("Save brands to file");
         ops.add("List all cars");
-        ops.add("List cars by a part of brand Name");
+        ops.add("List cars by a part of brand name");
         ops.add("Add new car");
         ops.add("Remove a car by its ID");
         ops.add("Update a car by its ID");
         ops.add("Save cars to file");
         ops.add("Exit");
 
+        // Switch choices
         int choice;
         do {
             choice = menu.int_getChoice(ops);
-            System.out.println("=======================================================");
+            System.out.println("==========================================================================================================================================================================================================================================================================");
             switch (choice) {
                 case 1:
-                    brandList.listBrand();
+                    brandList.printTable();
                     break;
                 case 2:
                     brandList.addBrand();
                     break;
                 case 3:
-                    System.out.print("Enter brand ID to search: ");
-                    String searchID = sc.nextLine().trim();
+                    String searchID;
+                    do {
+                        System.out.print("- Enter ID to search: ");
+                        searchID = sc.nextLine().trim();
+                        if (searchID.isEmpty()) {
+                            System.out.println("[ID cannot be blank]");
+                        } else {
+                            break;
+                        }
+                    } while (true);
                     int pos = brandList.searchID(searchID);
                     if (pos < 0) {
                         System.out.println("Not found!");
@@ -103,12 +115,26 @@ public class CarManager {
                     }
                     break;
                 case 12:
-                    System.out.println("[Exiting the program...]");
-                    break;
+                    do {
+                        System.out.print("Do you want to save all changes? - [y/n]: ");
+                        String c = sc.nextLine().trim().toLowerCase();
+                        switch (c) {
+                            case "y":
+                                if (carList.saveToFile(CARS_PATH) && brandList.saveToFile(BRANDS_PATH)) {
+                                    System.out.println("[Saved to file]");
+                                }
+                                return;
+                            case "n":
+                                System.out.println("[Exiting the program...]");
+                                return;
+                            default:
+                                System.out.println("[Invalid choice]");
+                        }
+                    } while (true);
                 default:
                     System.out.println("[Invalid option. Try again]");
             }
-            System.out.println("=======================================================");
+            System.out.println("==========================================================================================================================================================================================================================================================================");
         } while (choice != 12);
     }
 }

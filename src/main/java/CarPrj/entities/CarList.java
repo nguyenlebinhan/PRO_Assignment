@@ -65,10 +65,8 @@ public class CarList extends ArrayList<Car> {
                     continue;
                 }
                 Brand brand = brandList.get(pos);
-
                 this.add(new Car(carID, brand, color, frameID, engineID));
             }
-
             return true;
         } catch (IOException e) {
             System.out.println("[Error: " + e.getMessage() + "]");
@@ -127,7 +125,7 @@ public class CarList extends ArrayList<Car> {
         System.out.println("[ADD NEW CAR]");
 
         // Car ID
-        while (true) {
+        do {
             System.out.print("- Enter car ID: ");
             carID = sc.nextLine().trim().toUpperCase();
             if (carID.isEmpty()) {
@@ -137,14 +135,14 @@ public class CarList extends ArrayList<Car> {
             } else {
                 break;
             }
-        }
+        } while (true);
 
         // Brand
-        System.out.println("- Select car's brand:");
+        System.out.println("- Select car's brand: ");
         Brand brand = menu.ref_getChoice(brandList);
 
         // Color
-        while (true) {
+        do {
             System.out.print("- Enter color: ");
             color = sc.nextLine().trim().toLowerCase();
             if (color.isEmpty()) {
@@ -152,10 +150,10 @@ public class CarList extends ArrayList<Car> {
             } else {
                 break;
             }
-        }
+        } while (true);
 
         // Frame ID
-        while (true) {
+        do {
             System.out.print("- Enter frame ID: ");
             frameID = sc.nextLine().trim().toUpperCase();
             if (!frameID.matches("^F\\d{4}$")) {
@@ -165,10 +163,10 @@ public class CarList extends ArrayList<Car> {
             } else {
                 break;
             }
-        }
+        } while (true);
 
         // Engine ID
-        while (true) {
+        do {
             System.out.print("- Enter engine ID: ");
             engineID = sc.nextLine().trim().toUpperCase();
             if (!engineID.matches("^E\\d{4}$")) {
@@ -178,7 +176,7 @@ public class CarList extends ArrayList<Car> {
             } else {
                 break;
             }
-        }
+        } while (true);
 
         this.add(new Car(carID, brand, color, frameID, engineID));
         System.out.println("[Car added successfully]");
@@ -186,8 +184,16 @@ public class CarList extends ArrayList<Car> {
 
     public boolean updateCar() {
         String updatedID, frameID, color, engineID;
-        System.out.print("- Enter ID of car to update: ");
-        updatedID = sc.nextLine().toUpperCase();
+        do {
+            System.out.print("- Enter ID of car to update: ");
+            updatedID = sc.nextLine().trim();
+            if (updatedID.isEmpty()) {
+                System.out.println("[ID cannot be blank]");
+            } else {
+                break;
+            }
+        } while (true);
+
         int pos = searchID(updatedID);
         if (pos < 0) {
             System.out.println("[ID not found]");
@@ -195,16 +201,13 @@ public class CarList extends ArrayList<Car> {
         }
 
         //create a menu
-        System.out.println("Available brands: " + brandList.size());
-        for (Brand brand : brandList) {
-            System.out.println(brand);
-        }
+        System.out.println("Available brands: ");
         Brand b = (Brand) menu.ref_getChoice(brandList);
 
         // Color
         do {
             System.out.print("- Enter new color:");
-            color = sc.nextLine().toLowerCase().trim();
+            color = sc.nextLine().trim().toLowerCase();
             if (color.isEmpty()) {
                 System.out.println("[Color cannot be blank!. Try again]");
             }
@@ -213,7 +216,7 @@ public class CarList extends ArrayList<Car> {
         // FrameID
         do {
             System.out.print("- Enter new frame ID: ");
-            frameID = sc.nextLine().toUpperCase().trim();
+            frameID = sc.nextLine().trim().toUpperCase();
             if (!frameID.matches("^F\\d{4}$")) {
                 System.out.println("[Format error: must be 'F' followed by 4 digits]");
             } else if (searchFrame(frameID) >= 0) {
@@ -226,7 +229,7 @@ public class CarList extends ArrayList<Car> {
         // EngineID
         do {
             System.out.print("- Enter new engine ID: ");
-            engineID = sc.nextLine().toUpperCase().trim();
+            engineID = sc.nextLine().trim().toUpperCase();
             if (!engineID.matches("^E\\d{4}$")) {
                 System.out.println("[Format error: must be 'E' followed by 4 digits]");
             } else if (searchEngine(engineID) >= 0) {
@@ -244,8 +247,17 @@ public class CarList extends ArrayList<Car> {
     }
 
     public boolean removeCar() {
-        System.out.print("- Enter ID of car to remove: ");
-        String carID = sc.nextLine().trim().toUpperCase();
+        String carID;
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.print("- Enter ID of car to remove: ");
+            carID = sc.nextLine().trim();
+            if (carID.isEmpty()) {
+                System.out.println("[ID cannot be blank]");
+            } else {
+                break;
+            }
+        } while (true);
 
         int pos = searchID(carID);
         if (pos < 0) {
@@ -270,10 +282,18 @@ public class CarList extends ArrayList<Car> {
     }
 
     public void printBasedBrandName() {
-        System.out.print("- Enter part of brand name to search: ");
-        String aPartOfBrandName = sc.nextLine().trim();
+        String aPartOfBrandName;
+        do {
+            System.out.print("- Enter part of brand name to search: ");
+            aPartOfBrandName = sc.nextLine().trim();
+            if (aPartOfBrandName.isEmpty()) {
+                System.out.println("[Input cannot be blank]");
+            } else {
+                break;
+            }
+        } while (true);
+        
         int count = 0;
-
         for (Car car : this) {
             if (car.getBrand().getBrandName().toLowerCase().contains(aPartOfBrandName.toLowerCase())) {
                 System.out.println(car.screenString());
