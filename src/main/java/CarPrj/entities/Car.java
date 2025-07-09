@@ -1,7 +1,10 @@
 package CarPrj.entities;
 
 /**
- * Represents a car object in the showroom. - Includes carID, brand (as Brand object), color, frameID, engineID. - Implements Comparable to support sorting by brand name and car ID. - Includes toString() and screenString() for file and console output. - Getter methods like getCarID(), getFrameID(), getEngineID() support searching.
+ * Represents a car object
+ * - carID, brand (as Brand object), color, frameID, engineID
+ * - implements Comparable for sorting by brandName and carID.
+ * - toString() for file output.
  *
  * @author Le Minh Quan
  * @since 17-06-2025
@@ -9,12 +12,14 @@ package CarPrj.entities;
  */
 public class Car implements Comparable<Car> {
 
+    // Fields
     private String carID;
     private Brand brand;
     private String color;
     private String frameID;
     private String engineID;
 
+    // Constructors
     public Car() {
     }
 
@@ -26,6 +31,7 @@ public class Car implements Comparable<Car> {
         this.engineID = engineID;
     }
 
+    // Getters and setters
     public String getCarID() {
         return carID;
     }
@@ -66,21 +72,21 @@ public class Car implements Comparable<Car> {
         this.engineID = engineID;
     }
 
+    /**
+     * @return <carID, brandID, color, frameID, engineID>
+     */
     @Override
     public String toString() {
         return carID + ", " + brand.getBrandID() + ", " + color + ", " + frameID + ", " + engineID;
-    } 
+    }
 
-    public String screenString() {
-        return brand.toString() + ", " + carID + ", " + color + ", " + frameID + ", " + engineID;
-    } 
-
+    // Compare 
     @Override
     public int compareTo(Car car) {
         int d = this.brand.getBrandName().compareTo(car.brand.getBrandName());
         if (d != 0) {
             return d;
         }
-        return this.carID.compareTo(car.carID); 
-    } 
+        return this.carID.compareTo(car.carID);
+    }
 }

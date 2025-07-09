@@ -5,8 +5,138 @@ import java.util.*;
 
 public class BrandList extends ArrayList<Brand> {
 
-    // Hai
-    public Boolean loadFromFile(String fileName) {
+    private static final Scanner sc = new Scanner(System.in);
+
+    /**
+     * Update: Return Brand for Logger class
+     *
+     * @author HaiQH
+     * @since 08-07-2025
+     * @version 3
+     */
+    // Add new brand
+    public Brand addBrand() {
+        String brandID, brandName, soundBrand;
+        double price;
+
+        System.out.println("[ADD NEW BRAND]");
+
+        // Get brand ID
+        System.out.print("- Enter brand ID: ");
+        brandID = sc.nextLine().trim();
+        if (brandID.isEmpty()) {
+            System.out.println("[Brand ID cannot be empty]");
+            return null;
+        }
+        if (searchID(brandID) >= 0) {
+            System.out.println("[Brand ID already exists]");
+            return null;
+        }
+
+        // Get user input
+        brandName = inputBrandName("- Enter brand name: ");
+        soundBrand = inputSoundBrand("- Enter sound brand: ");
+        price = inputPrice("- Enter price: ");
+
+        Brand newBrand = new Brand(brandID, brandName, soundBrand, price);
+        this.add(newBrand);
+        System.out.println("[Brand added successfully]");
+        return newBrand;
+    }
+
+    // Update brand
+    public Brand updateBrand() {
+        String newName, newSound;
+        double newPrice;
+
+        if (this.isEmpty()) {
+            System.out.println("[No brands to update]");
+            return null;
+        }
+        System.out.println("[UPDATE BRAND]");
+
+        // Get brand ID          
+        System.out.print("- Enter brand ID to update: ");
+        String id = sc.nextLine().trim();
+        if (id.isEmpty()) {
+            System.out.println("[ID cannot be blank]");
+            return null;
+        }
+
+        int pos = searchID(id);
+        if (pos < 0) {
+            System.out.println("[Brand not found]");
+            return null;
+        }
+
+        Brand old = this.get(pos);
+        System.out.println("Updating: [" + old.toString() + "]");
+
+        // Get user input
+        newName = inputBrandName("- Enter new brand name: ");
+        newSound = inputSoundBrand("- Enter new sound brand: ");
+        newPrice = inputPrice("- Enter new price: ");
+
+        Brand updatedBrand = new Brand(old.getBrandID(), newName, newSound, newPrice);
+
+        this.set(pos, updatedBrand);
+        return updatedBrand;
+    }
+
+    // Get input for brand name
+    private String inputBrandName(String msg) {
+        String name;
+        do {
+            System.out.print(msg);
+            name = sc.nextLine().trim();
+            if (name.isEmpty()) {
+                System.out.println("[Brand name cannot be empty]");
+            } else {
+                return name;
+            }
+        } while (true);
+    }
+
+    // Get input for sound brand 
+    private String inputSoundBrand(String msg) {
+        String sound;
+        do {
+            System.out.print(msg);
+            sound = sc.nextLine().trim();
+            if (sound.isEmpty()) {
+                System.out.println("[Sound brand cannot be empty]");
+            } else {
+                return sound;
+            }
+        } while (true);
+    }
+
+    // Get input for price
+    private double inputPrice(String msg) {
+        double price;
+        do {
+            System.out.print(msg);
+            try {
+                price = Double.parseDouble(sc.nextLine().trim());
+                if (price <= 0) {
+                    System.out.println("[Price must be positive]");
+                } else {
+                    return price;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("[Invalid price format]");
+            }
+        } while (true);
+    }
+
+    /**
+     *
+     * @author AnNLB
+     * @since 2025-07-08
+     * @version 2
+     */
+    // Load data from brands.txt
+    public boolean loadFromFile(String fileName) {
         File file = new File(fileName);
         if (!file.exists()) {
             System.out.println("[file does not exist]");
@@ -36,10 +166,11 @@ public class BrandList extends ArrayList<Brand> {
         }
     }
 
+    // Save data to brands.txt
     public boolean saveToFile(String fileName) {
         File file = new File(fileName);
         if (!file.exists()) {
-            System.out.print("[file does not exist]");
+            System.out.print("[File does not exist]");
             return false;
         }
 
@@ -55,164 +186,23 @@ public class BrandList extends ArrayList<Brand> {
         }
     }
 
+    // Search brand ID
     public int searchID(String brandID) {
         for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).getBrandID().equals(brandID)) {
+            if (this.get(i).getBrandID().equalsIgnoreCase(brandID)) {
                 return i;
             }
         }
         return -1;
     }
 
-    public Brand getUserChoice() {
+    // List brands
+    public void listBrands() {
         if (this.isEmpty()) {
-            System.out.println("[no brands available]");
-            return null;
+            System.out.println("[No brands to display]");
+            return;
         }
 
-        Menu menu = new Menu();
-        return menu.ref_getChoice(this); // uses toString() to display options
-    }
-
-    // An
-    public void addBrand() {
-        Scanner sc = new Scanner(System.in);
-        String brandID, brandName, soundBrand;
-        double price;
-
-        System.out.println("[ADD NEW BRAND]");
-
-        // Brand ID
-        do {
-            System.out.print("- Enter brand ID: ");
-            brandID = sc.nextLine().trim();
-            if (searchID(brandID) >= 0) {
-                System.out.println("[brand ID already exists]");
-                brandID = null;
-            } else if (brandID.isEmpty()) {
-                System.out.println("[brand ID cannot be empty]");
-            }
-        } while (brandID == null || brandID.isEmpty());
-
-        // Brand name
-        do {
-            System.out.print("- Enter brand name: ");
-            brandName = sc.nextLine().trim();
-            if (brandName.isEmpty()) {
-                System.out.println("[brand name cannot be empty]");
-            }
-        } while (brandName.isEmpty());
-
-        // Sound Brand
-        do {
-            System.out.print("- Enter sound brand: ");
-            soundBrand = sc.nextLine().trim();
-            if (soundBrand.isEmpty()) {
-                System.out.println("[sound brand cannot be empty]");
-            }
-        } while (soundBrand.isEmpty());
-
-        // Price
-        do {
-            System.out.print("- Enter price: ");
-            try {
-                price = Double.parseDouble(sc.nextLine().trim());
-                if (price <= 0) {
-                    System.out.println("[price must be positive]");
-                    continue;
-                }
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("[Error: " + e.getMessage() + "]");
-            }
-        } while (true);
-
-        this.add(new Brand(brandID, brandName, soundBrand, price));
-        System.out.println("[Brand added successfully]");
-    }
-
-    public boolean updateBrand() {
-        try {
-            if (this.isEmpty()) {
-                System.out.println("[no brands to update]");
-                return false;
-            }
-
-            String id;
-            Scanner sc = new Scanner(System.in);
-            do {
-                System.out.print("- Enter brand ID to update: ");
-                id = sc.nextLine().trim();
-                if (id.isEmpty()) {
-                    System.out.println("[ID cannot be blank]");
-                } else {
-                    break;
-                }
-            } while (true);
-
-            int pos = searchID(id);
-            if (pos < 0) {
-                System.out.println("[Brand not found]");
-                return false;
-            }
-
-            Brand old = this.get(pos);
-            System.out.println("Updating: [" + old.toString() + "]");
-
-            // Brand name
-            String newName;
-            do {
-                System.out.print("- Enter brand name: ");
-                newName = sc.nextLine().trim();
-                if (newName.isEmpty()) {
-                    System.out.println("[brand name cannot be empty]");
-                }
-            } while (newName.isEmpty());
-
-            // Sound Brand
-            String newSound;
-            do {
-                System.out.print("- Enter sound brand: ");
-                newSound = sc.nextLine().trim();
-                if (newSound.isEmpty()) {
-                    System.out.println("[sound brand cannot be empty]");
-                }
-            } while (newSound.isEmpty());
-
-            // Price
-            double newPrice;
-            while (true) {
-                System.out.print("- Enter new price: ");
-                String priceInput = sc.nextLine().trim();
-                try {
-                    newPrice = Double.parseDouble(priceInput);
-                    if (newPrice > 0) {
-                        break;
-                    } else {
-                        System.out.println("[price must be positive]");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("[Error: " + e.getMessage() + "]");
-                }
-            }
-
-            // Replace old object
-            this.set(pos, new Brand(old.getBrandID(), newName, newSound, newPrice));
-            return true;
-
-        } catch (Exception e) {
-            System.out.println("[Error: " + e.getMessage() + "]");
-            return false;
-        }
-    }
-
-    public void listBrand() {
-        for (Brand brand : this) {
-            System.out.println(brand);
-        }
-    }
-
-    public void printTable() {
         System.out.printf("%-15s %-35s %-30s %-10s\n", "Brand ID", "Brand name", "Sound", "Price");
         System.out.println("============================================================================================================");
         for (Brand brand : this) {

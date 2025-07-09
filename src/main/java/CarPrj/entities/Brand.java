@@ -1,7 +1,9 @@
 package CarPrj.entities;
 
 /**
- * Represents a car brand. - Each brand has an ID, name, sound system brand, and price. - Used in Car objects and displayed in brand-related operations. - Includes getters, setters, and toString() for display and file output.
+ * Represents a car brand 
+ * - each brand has an ID, name, sound system brand, and price. 
+ * - getters, setters, and toString() for display and file output.
  *
  * @author Le Minh Quan
  * @since 17-06-2025
@@ -9,16 +11,16 @@ package CarPrj.entities;
  */
 public class Brand {
 
+    // Fields
     private String brandID;
     private String brandName;
     private String soundBrand;
     private double price;
 
-    // Default constructor
+    // Constructors
     public Brand() {
     }
 
-    // Parameterized constructor
     public Brand(String brandID, String brandName, String soundBrand, double price) {
         this.brandID = brandID;
         this.brandName = brandName;
@@ -59,9 +61,19 @@ public class Brand {
         this.price = price;
     }
 
-    // Output format: brandID, brandName, soundBrand:price
+    /**
+    @return <brandID, brandName, soundBrand:price>
+     */
     @Override
     public String toString() {
         return brandID + ", " + brandName + ", " + soundBrand + ":" + price;
+    }
+    
+    // Print brand info
+    public void brandInfo() {
+        System.out.println("Brand ID: " + brandID);
+        System.out.println("Brand name: " + brandName);
+        System.out.println("Sound brand: " + soundBrand);
+        System.out.println("Price: " + price);
     }
 }
